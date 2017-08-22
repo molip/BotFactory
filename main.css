@@ -1,0 +1,35 @@
+body {
+	font-family:'Tahoma';
+	margin:0;
+	overflow:hidden;
+}
+
+/* TabBar */
+#tabs
+{
+    height: 2em;
+}
+
+.tab
+{
+    width: 10em;
+    height: 100%;
+    border: 1px solid;
+    float: left;
+}
+
+.tab_selected
+{
+    font-weight: bold;
+}
+
+.tab:hover
+{
+    background-color: cornflowerblue;
+}
+
+.tab:active
+{
+    background-color: white;
+}
+

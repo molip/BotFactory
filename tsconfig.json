@@ -1,0 +1,14 @@
+{
+	"compileOnSave": true,
+	"compilerOptions": {
+		"outFile": "app.js",
+		"target": "es2015",
+		"watch": true,
+		"emitBOM": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"noImplicitReturns": true,
+		"alwaysStrict": true
+	},
+	"include": [ "ts/**/*" ]
+}

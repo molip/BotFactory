@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="main.css">
+	<link rel="manifest" href="manifest.json">
+	
+	<script src="app.js"></script>
+</head>
+<body onload="Controller.onLoad()">
+    <button onclick="Controller.onReset()">Reset</button>
+    <div id="lobby_div">
+        <input id="player_name_input" onkeypress="if (event.keyCode == 13) View.onAddPlayer()"/>
+        <button onclick="View.onAddPlayer()">Add Player</button>
+        <button id="start_game_button" onclick="Controller.onStartGame()">Start Game</button>
+    </div>
+    <table id="player_table"></table>
+</body>
+</html>
