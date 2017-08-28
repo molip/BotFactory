@@ -1,35 +1,72 @@
-body {
-	font-family:'Tahoma';
-	margin:0;
-	overflow:hidden;
-}
-
-/* TabBar */
-#tabs
+body
 {
-    height: 2em;
-}
-
-.tab
-{
-    width: 10em;
-    height: 100%;
+    font-family: 'Tahoma';
+    margin: 0.5em;
+    padding: 0.5em;
     border: 1px solid;
-    float: left;
+    width: 45em;
+    height: 60em; /* 4:37 */
+    font-size: 11px;
+    position: relative;
 }
 
-.tab_selected
-{
-    font-weight: bold;
-}
-
-.tab:hover
+.tr_selected
 {
     background-color: cornflowerblue;
 }
 
-.tab:active
+.card_row
+{
+}
+
+.card
+{
+    width: 6em;
+    height: 8em;
+    border: 1px solid;
+    display: inline-block;
+    margin-right: 1em;
+    text-align: center;
+    background-color: lightgray;
+}
+
+.card_selected
+{
+    font-weight: bold;
+}
+
+.card:hover
+{
+    background-color: cornflowerblue;
+}
+
+.card:active
 {
     background-color: white;
 }
 
+#page
+{
+    background-color: white;
+    position: absolute;
+    visibility: hidden;
+    border: 1px solid;
+}
+
+#page.show
+{
+    left: 10%;
+    top: 10%;
+    width: 80%;
+    height: 80%;
+    transition: 0.2s ease-in;
+    visibility: visible;
+}
+
+#page_buttons
+{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 5%;
+}

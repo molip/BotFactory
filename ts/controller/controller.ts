@@ -27,4 +27,16 @@ namespace Controller
 			View.update();
 		}
 	}
+
+	export function onOK()
+	{
+		View.hidePage();
+		Model.state.advance();
+		View.update();
+	}
+
+	export function onCancel()
+	{
+		View.hidePage();
+	}
 }

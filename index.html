@@ -8,12 +8,28 @@
 	<script src="app.js"></script>
 </head>
 <body onload="Controller.onLoad()">
-    <button onclick="Controller.onReset()">Reset</button>
+    <button id="reset_button">Reset</button>
     <div id="lobby_div">
-        <input id="player_name_input" onkeypress="if (event.keyCode == 13) View.onAddPlayer()"/>
-        <button onclick="View.onAddPlayer()">Add Player</button>
-        <button id="start_game_button" onclick="Controller.onStartGame()">Start Game</button>
+        <input id="player_name_input"/>
+        <button id="add_player_button">Add Player</button>
+        <button id="start_game_button">Start Game</button>
     </div>
     <table id="player_table"></table>
+    <div id="game_div">
+        <h4>Events</h4>
+        <div id="event_cards" class="card_row"></div>
+        <h4>Upgrades</h4>
+        <div id="upgrade_cards" class="card_row"></div>
+        <h4>Actions</h4>
+        <div id="action_cards" class="card_row"></div>
+        <br />
+        <br />
+    </div>
+    <div id="page">
+        <div id="page_buttons">
+            <button id="ok_button">OK</button>
+            <button id="cancel_button">Cancel</button>
+        </div>
+    </div>
 </body>
 </html>

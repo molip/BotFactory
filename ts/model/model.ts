@@ -21,7 +21,7 @@ namespace Model
 		static readonly key: string = "state.v1";
 
 		players: Player[] = [];
-		started = false;
+		currentPlayer = -1;
 
 		constructor()
 		{
@@ -41,8 +41,19 @@ namespace Model
 
 		start()
 		{
-			this.started = true;
+			this.currentPlayer = 0;
 			Model.saveState();
+		}
+
+		hasStarted()
+		{
+			return this.currentPlayer >= 0;
+		}
+
+		advance()
+		{
+			Util.assert(this.hasStarted());
+			this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
 		}
 	}
 
