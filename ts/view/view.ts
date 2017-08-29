@@ -56,7 +56,6 @@ namespace View
 			factory.addColumnHeader('Storage');
 			factory.addColumnHeader('Robots');
 			factory.addColumnHeader('Money');
-			factory.addColumnHeader('Sabotaged');
 		}
 
 		let index = 0;
@@ -67,13 +66,16 @@ namespace View
 
 			if (Model.state.hasStarted())
 			{
+				let productionCell = new Table.TextCell(player.getProduction().toString());
+				if (player.sabotaged)
+					productionCell.cellElement.classList.add('sabotaged');
+
 				cells.push(new Table.TextCell(Model.getBotName(player.type)));
 				cells.push(new Table.TextCell(player.getPrice().toString()));
-				cells.push(new Table.TextCell(player.getProduction().toString()));
+				cells.push(productionCell);
 				cells.push(new Table.TextCell(player.getStorage().toString()));
 				cells.push(new Table.TextCell(player.robots.toString()));
 				cells.push(new Table.TextCell(player.money.toString()));
-				cells.push(new Table.TextCell(player.sabotaged.toString()));
 			}
 
 			let row = factory.addRow(cells);

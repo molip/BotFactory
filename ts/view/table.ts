@@ -6,14 +6,15 @@ namespace View
 		{
 			cellElement: HTMLTableDataCellElement= null;
 
-			constructor(public width?: number) { } // %
-
-			getElement(): HTMLTableDataCellElement
+			constructor(public width?: number) // %
 			{
 				this.cellElement = document.createElement('td');
 				if (this.width)
 					this.cellElement.style.width = this.width.toString() + '%';
+			} 
 
+			getElement(): HTMLTableDataCellElement
+			{
 				return this.cellElement;
 			}
 		}

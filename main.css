@@ -4,9 +4,9 @@ body
     margin: 0.5em;
     padding: 0.5em;
     border: 1px solid;
-    width: 45em;
-    height: 60em; /* 4:37 */
-    font-size: 11px;
+    width: 39em;
+    height: 52em; /* 4:3 */
+    font-size: 13px;
     position: relative;
 }
 
@@ -15,8 +15,10 @@ body
     background-color: cornflowerblue;
 }
 
-.card_row
+.sabotaged 
 {
+    text-decoration: line-through;
+    background-color: red;
 }
 
 .card
