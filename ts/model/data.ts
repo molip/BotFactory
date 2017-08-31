@@ -1,19 +1,20 @@
 namespace Data
 {
 	export const StoragePerWarehouse = 5;
+
 	export class BotDef
 	{
-		constructor(public production: number, public price: number) { }
+		constructor(public name: string, public production: number, public price: number) { }
 	}
 
-	export const BotDefs: { [key: string]: BotDef } = 
-	{
-		'Basic':	new BotDef(2, 1),
-		'Block':	new BotDef(3, 2),
-		'Cop':		new BotDef(2, 3),
-		'Crop':		new BotDef(3, 2), 
-		'Doc':		new BotDef(1, 6),
-		'Drop':		new BotDef(2, 3), 
-		'Mop':		new BotDef(6, 1),
-	}
+	export const BotDefs = // Same order as Model.BotType.
+	[
+		new BotDef('BitBot', 2, 1),
+		new BotDef('BlockBot', 3, 2),
+		new BotDef('CopBot', 2, 3),
+		new BotDef('CropBot', 3, 2),
+		new BotDef('DocBot', 1, 6),
+		new BotDef('DropBot', 2, 3),
+		new BotDef('MopBot', 6, 1),
+	];
 }

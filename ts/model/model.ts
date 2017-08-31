@@ -1,19 +1,11 @@
 namespace Model
 {
-	export class BotType
-	{
-		static Basic = 'Basic';
-		static Block = 'Block';
-		static Cop = 'Cop'; 
-		static Crop = 'Crop'; 
-		static Doc = 'Doc';
-		static Drop = 'Drop'; 
-		static Mop = 'Mop';
-	}
+	// Same order as Data.BotDefs.
+	export enum BotType { Basic, Block, Cop, Crop, Doc, Drop, Mop }
 
-	export function getBotName(type: string)
+	export function getBotName(type: BotType)
 	{
-		return type;
+		return Data.BotDefs[type].name;
 	}
 
 	export class State
