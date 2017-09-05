@@ -42,7 +42,7 @@ namespace Model
 
 		payday()
 		{
-			this.money = this.robots * this.getProduction();
+			this.money += this.robots * this.getPrice();
 			this.robots = 0;
 		}
 	}
