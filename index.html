@@ -8,16 +8,16 @@
 	<script src="app.js"></script>
 </head>
 <body onload="Controller.onLoad()">
+    <h1>Bot Factory</h1>
     <button id="reset_button">Reset</button>
+    <span id="market_span"></span>
     <div id="lobby_div">
         <input id="player_name_input"/>
         <button id="add_player_button">Add Player</button>
         <button id="start_game_button">Start Game</button>
     </div>
     <table id="player_table"></table>
-    <div id="game_div">
-        <h4>Events</h4>
-        <div id="event_cards" class="card_row"></div>
+    <div id="play_div">
         <h4>Upgrades</h4>
         <div id="upgrade_cards" class="card_row"></div>
         <h4>Actions</h4>
@@ -25,10 +25,17 @@
         <br />
         <br />
     </div>
+    <div id="pickup_div">
+        <h4>Events</h4>
+        <div id="event_cards" class="card_row"></div>
+    </div>
     <div id="page">
+        <h1 id="page_title">Card</h1>
+        <hr />
+        <div id="page_content"></div>
         <div id="page_buttons">
-            <button id="ok_button">OK</button>
-            <button id="cancel_button">Cancel</button>
+            <button id="ok_button" class="page_button">OK</button>
+            <button id="cancel_button" class="page_button">Cancel</button>
         </div>
     </div>
 </body>

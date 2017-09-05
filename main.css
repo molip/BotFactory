@@ -21,6 +21,16 @@ body
     background-color: red;
 }
 
+.minus
+{
+    background-color: red;
+}
+
+.plus
+{
+    background-color: green;
+}
+
 .card
 {
     width: 6em;
@@ -53,6 +63,22 @@ body
     position: absolute;
     visibility: hidden;
     border: 1px solid;
+    text-align:center;
+}
+
+#page_title 
+{
+    width:100%;
+}
+
+#page_content
+{
+    display: inline-block;
+    text-align: left;
+}
+
+#page_radio_div
+{
 }
 
 #page.show
@@ -71,4 +97,9 @@ body
     left: 50%;
     transform: translateX(-50%);
     bottom: 5%;
+}
+
+.page_button
+{
+    font-size: 2em;
 }

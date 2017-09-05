@@ -1,5 +1,7 @@
 namespace Controller
 {
+	let currentCard: Card;
+
 	export function onLoad()
 	{
 		Model.init();
@@ -28,15 +30,31 @@ namespace Controller
 		}
 	}
 
+	export function onSelect(index: number)
+	{
+		currentCard.selectIndex = index;
+	}
+
+	export function onRadio(index: number)
+	{
+		currentCard.radioIndex = index;
+	}
+
 	export function onOK()
 	{
 		View.hidePage();
-		Model.state.advance();
+		currentCard.apply();
 		View.update();
 	}
 
 	export function onCancel()
 	{
 		View.hidePage();
+	}
+
+	export function onCardClicked(tag: string)
+	{
+		currentCard = makeCard(tag);
+		View.populateCard(currentCard);
 	}
 }

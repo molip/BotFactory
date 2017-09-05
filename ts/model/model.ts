@@ -1,11 +1,17 @@
 namespace Model
 {
-	// Same order as Data.BotDefs.
-	export enum BotType { Basic, Block, Cop, Crop, Doc, Drop, Mop }
+	// Same order as Data.BotDefs. Basic must be first.
+	export enum BotType { Basic, Block, Cop, Crop, Doc, Drop, Mop, _Count }
+	export enum Phase { Play, Pickup };
 
 	export function getBotName(type: BotType)
 	{
 		return Data.BotDefs[type].name;
+	}
+
+	export class Market
+	{
+		constructor(public type: Model.BotType, public delta: number) { }
 	}
 
 	export class State
@@ -14,6 +20,8 @@ namespace Model
 
 		players: Player[] = [];
 		currentPlayer = -1;
+		phase = Phase.Play;
+		private markets: Market[] = [];
 
 		constructor()
 		{
@@ -45,7 +53,49 @@ namespace Model
 		advance()
 		{
 			Util.assert(this.hasStarted());
-			this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
+
+			if (this.phase == Phase.Play)
+			{
+				this.getCurrentPlayer().produce();
+				this.phase = Phase.Pickup;
+			}
+			else
+			{
+				this.currentPlayer = (this.currentPlayer + 1) % this.players.length;
+				this.phase = Phase.Play;
+			}
+
+			Model.saveState();
+		}
+
+		getCurrentPlayer()
+		{
+			if (!this.hasStarted())
+				return null;
+
+			return this.players[this.currentPlayer];
+		}
+
+		payday()
+		{
+			for (let player of this.players)
+				player.payday();
+		}
+
+		getMarket()
+		{
+			return this.markets.length ? this.markets[this.markets.length - 1] : null;
+		}
+
+		pushMarket(type: Model.BotType, delta: number)
+		{
+			this.markets.push(new Model.Market(type, delta));
+		}
+
+		popMarket()
+		{
+			if (this.markets.length >= 1)
+				this.markets.pop();
 		}
 	}
 
