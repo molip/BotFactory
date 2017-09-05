@@ -11,8 +11,13 @@ namespace Controller
 
 	export function onAddPlayer(name: string)
 	{
-		Model.state.addPlayer(name);
-		View.update();
+		name.trim();
+
+		if (name.length)
+		{
+			Model.state.addPlayer(name);
+			View.update();
+		}
 	}
 
 	export function onStartGame()
