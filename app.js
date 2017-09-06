@@ -216,12 +216,16 @@ var Model;
         getStorage() {
             return Data.StoragePerWarehouse * (1 + this.warehouseCards);
         }
-        getPrice() {
-            return Data.BotDefs[this.type].price + this.getMarketDelta() + this.qualityCards;
+        getRawPrice() {
+            return Data.BotDefs[this.type].price + this.qualityCards;
         }
-        getMarketDelta() {
+        getPrice() {
+            let price = this.getRawPrice();
             let market = Model.state.getMarket();
-            return market && market.type == this.type ? market.delta : 0;
+            if (market && market.type == this.type)
+                if (market.delta > 0 || price > 1)
+                    price += market.delta;
+            return price;
         }
         getProduction() {
             return Data.BotDefs[this.type].production + this.productionCards;
@@ -349,12 +353,13 @@ var View;
             cells.push(new View.Table.TextCell(player.name));
             if (Model.state.hasStarted()) {
                 let productionCell = new View.Table.TextCell(player.getProduction().toString());
-                let priceCell = new View.Table.TextCell(player.getPrice().toString());
                 if (player.sabotaged)
                     productionCell.cellElement.classList.add('sabotaged');
-                let marketDelta = player.getMarketDelta();
-                if (marketDelta)
-                    priceCell.cellElement.classList.add(marketDelta < 0 ? 'minus' : 'plus');
+                let price = player.getPrice();
+                let rawPrice = player.getRawPrice();
+                let priceCell = new View.Table.TextCell(price.toString());
+                if (price != rawPrice)
+                    priceCell.cellElement.classList.add(price < rawPrice ? 'minus' : 'plus');
                 cells.push(new View.Table.TextCell(Model.getBotName(player.type)));
                 cells.push(priceCell);
                 cells.push(productionCell);
@@ -551,6 +556,7 @@ var Controller;
         apply() {
             let player = Model.state.getCurrentPlayer();
             if (player.type == Model.BotType.Basic) {
+                player.payday();
                 player.type = this.selectIndex + 1;
             }
             else {

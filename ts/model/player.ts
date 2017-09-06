@@ -19,15 +19,21 @@ namespace Model
 			return Data.StoragePerWarehouse * (1 + this.warehouseCards);
 		}
 
-		getPrice()
+		getRawPrice()
 		{
-			return Data.BotDefs[this.type].price + this.getMarketDelta() + this.qualityCards;
+			return Data.BotDefs[this.type].price + this.qualityCards;
 		}
 
-		getMarketDelta()
+		getPrice()
 		{
+			let price = this.getRawPrice();
+
 			let market = Model.state.getMarket();
-			return market && market.type == this.type ? market.delta : 0;
+			if (market && market.type == this.type)
+				if (market.delta > 0 || price > 1)
+					price += market.delta;
+
+			return price;
 		}
 
 		getProduction()

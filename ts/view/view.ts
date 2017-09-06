@@ -70,14 +70,14 @@ namespace View
 			if (Model.state.hasStarted())
 			{
 				let productionCell = new Table.TextCell(player.getProduction().toString());
-				let priceCell = new Table.TextCell(player.getPrice().toString());
-
 				if (player.sabotaged)
 					productionCell.cellElement.classList.add('sabotaged');
 
-				let marketDelta = player.getMarketDelta();
-				if (marketDelta)
-					priceCell.cellElement.classList.add(marketDelta < 0 ? 'minus' : 'plus');
+				let price = player.getPrice();
+				let rawPrice = player.getRawPrice();
+				let priceCell = new Table.TextCell(price.toString());
+				if (price != rawPrice)
+					priceCell.cellElement.classList.add(price < rawPrice ? 'minus' : 'plus');
 
 				cells.push(new Table.TextCell(Model.getBotName(player.type)));
 				cells.push(priceCell);

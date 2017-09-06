@@ -75,6 +75,7 @@ namespace Controller
 
 			if (player.type == Model.BotType.Basic)
 			{
+				player.payday();
 				player.type = this.selectIndex + 1;
 			}
 			else
