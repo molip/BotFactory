@@ -1,4 +1,4 @@
-namespace Controller
+namespace Presenter
 {
 	export function makeCard(tag: string)
 	{

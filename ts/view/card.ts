@@ -24,7 +24,7 @@ namespace View
 			let select = document.createElement('select');
 			select.id = 'select';
 			select.style.overflow = 'hidden';
-			select.addEventListener('change', () => { Controller.onSelect(select.selectedIndex); });
+			select.addEventListener('change', () => { Presenter.onSelect(select.selectedIndex); });
 			this.contentDiv.appendChild(select);
 			this.addBreak();
 			return select;
@@ -60,7 +60,7 @@ namespace View
 			radio.type = "radio"
 			radio.name = "radio"
 			radio.value = label;
-			radio.addEventListener('click', () => { Controller.onRadio(index); });
+			radio.addEventListener('click', () => { Presenter.onRadio(index); });
 
 			this.radioDiv.appendChild(radio);
 

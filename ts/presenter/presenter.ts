@@ -1,4 +1,4 @@
-namespace Controller
+namespace Presenter
 {
 	let currentCard: Card;
 

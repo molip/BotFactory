@@ -33,11 +33,11 @@ namespace View
 		div.appendChild(addTab('Sell Blueprint', 'sell'));
 		div.appendChild(addTab('Discard', 'discard'));
 
-		document.getElementById('reset_button').addEventListener('click', Controller.onReset);
-		document.getElementById('start_game_button').addEventListener('click', Controller.onStartGame);
+		document.getElementById('reset_button').addEventListener('click', Presenter.onReset);
+		document.getElementById('start_game_button').addEventListener('click', Presenter.onStartGame);
 		document.getElementById('add_player_button').addEventListener('click', View.onAddPlayer);
-		document.getElementById('cancel_button').addEventListener('click', Controller.onCancel);
-		document.getElementById('ok_button').addEventListener('click', Controller.onOK);
+		document.getElementById('cancel_button').addEventListener('click', Presenter.onCancel);
+		document.getElementById('ok_button').addEventListener('click', Presenter.onOK);
 
 		document.getElementById('player_name_input').addEventListener('keypress', function (event: KeyboardEvent)
 		{
@@ -114,7 +114,7 @@ namespace View
 	export function onAddPlayer()
 	{
 		let input = document.getElementById('player_name_input') as HTMLInputElement;
-		Controller.onAddPlayer(input.value);
+		Presenter.onAddPlayer(input.value);
 		input.value = '';
 		input.focus();
 	}
@@ -132,34 +132,34 @@ namespace View
 		page.style.left = page.style.top = page.style.width = page.style.height = '';
 		page.classList.add('show');
 
-		Controller.onCardClicked(tag);
+		Presenter.onCardClicked(tag);
 	}
 
-	export function populateCard(cardVM: Controller.Card)
+	export function populateCard(card: Presenter.Card)
 	{
 		let contentDiv = document.getElementById('page_content');
 		contentDiv.innerHTML = '';
 
 		let title = document.getElementById('page_title');
-		title.innerText = cardVM.name;
+		title.innerText = card.name;
 
-		let card = new Card(contentDiv);
-		let selectList = cardVM.makeSelectList();
-		let radioList = cardVM.makeRadioList();
+		let cardUI = new Card(contentDiv);
+		let selectList = card.makeSelectList();
+		let radioList = card.makeRadioList();
 
 		if (selectList)
 		{
-			card.addLabel(selectList.title);
-			let select = card.addSelect();
+			cardUI.addLabel(selectList.title);
+			let select = cardUI.addSelect();
 			for (let item of selectList.items)
-				card.addOption(select, item);
+				cardUI.addOption(select, item);
 		}
 
 		if (radioList)
 		{
-			card.addLabel(radioList.title);
+			cardUI.addLabel(radioList.title);
 			for (let item of radioList.items)
-				card.addRadio(item);
+				cardUI.addRadio(item);
 		}
 	}
 
