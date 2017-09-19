@@ -49,9 +49,10 @@ namespace View
 	export function update()
 	{
 		let factory = new Table.Factory(document.getElementById('player_table') as HTMLTableElement);
+		const state = Presenter.state;
 
 		factory.addColumnHeader('Name');
-		if (Model.state.hasStarted())
+		if (!state.showLobby)
 		{
 			factory.addColumnHeader('Blueprint');
 			factory.addColumnHeader('Price');
@@ -61,54 +62,39 @@ namespace View
 			factory.addColumnHeader('Money');
 		}
 
-		let index = 0;
-		for (let player of Model.state.players)
+		for (let player of state.players)
 		{
 			let cells: Table.Cell[] = [];
 			cells.push(new Table.TextCell(player.name));
 
-			if (Model.state.hasStarted())
+			if (!state.showLobby)
 			{
-				let productionCell = new Table.TextCell(player.getProduction().toString());
+				let productionCell = new Table.TextCell(player.production);
 				if (player.sabotaged)
 					productionCell.cellElement.classList.add('sabotaged');
 
-				let price = player.getPrice();
-				let rawPrice = player.getRawPrice();
-				let priceCell = new Table.TextCell(price.toString());
-				if (price != rawPrice)
-					priceCell.cellElement.classList.add(price < rawPrice ? 'minus' : 'plus');
+				let priceCell = new Table.TextCell(player.price);
+				if (player.priceStyle)
+					priceCell.cellElement.classList.add(player.priceStyle);
 
-				cells.push(new Table.TextCell(Model.getBotName(player.type)));
+				cells.push(new Table.TextCell(player.type));
 				cells.push(priceCell);
 				cells.push(productionCell);
-				cells.push(new Table.TextCell(player.getStorage().toString()));
-				cells.push(new Table.TextCell(player.robots.toString()));
-				cells.push(new Table.TextCell(player.money.toString()));
+				cells.push(new Table.TextCell(player.storage));
+				cells.push(new Table.TextCell(player.robots));
+				cells.push(new Table.TextCell(player.money));
 			}
 
 			let row = factory.addRow(cells);
-			if (index++ == Model.state.currentPlayer)
+			if (player.selected)
 				row.classList.add('tr_selected');
 		}
 
-		let started = Model.state.hasStarted();
-		document.getElementById('lobby_div').hidden = started;
-		document.getElementById('play_div').hidden = !(started && Model.state.phase == Model.Phase.Play);
-		document.getElementById('pickup_div').hidden = !(started && Model.state.phase == Model.Phase.Pickup);
-		(document.getElementById('start_game_button') as HTMLButtonElement).disabled = Model.state.players.length == 0;
-
-		let market = Model.state.getMarket();
-		let marketString = '';
-		if (market)
-		{
-			marketString = 'Market: ' + Data.BotDefs[market.type].name + 's ';
-			if (market.delta > 0)
-				marketString += '+';
-
-			marketString += market.delta;
-		}
-		document.getElementById('market_span').innerText = marketString;
+		document.getElementById('lobby_div').hidden = !state.showLobby;
+		document.getElementById('play_div').hidden = !state.showPlay;
+		document.getElementById('pickup_div').hidden = !state.showPickup;
+		(document.getElementById('start_game_button') as HTMLButtonElement).disabled = !state.canStart;
+		document.getElementById('market_span').innerText = state.market;
 	}
 
 	export function onAddPlayer()

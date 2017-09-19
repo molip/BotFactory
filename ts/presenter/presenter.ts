@@ -1,12 +1,13 @@
 namespace Presenter
 {
 	let currentCard: Card;
+	export let state: State;
 
 	export function onLoad()
 	{
 		Model.init();
 		View.init();
-		View.update();
+		updateView();
 	}
 
 	export function onAddPlayer(name: string)
@@ -16,14 +17,14 @@ namespace Presenter
 		if (name.length)
 		{
 			Model.state.addPlayer(name);
-			View.update();
+			updateView();
 		}
 	}
 
 	export function onStartGame()
 	{
 		Model.state.start();
-		View.update();
+		updateView();
 	}
 
 	export function onReset()
@@ -31,7 +32,7 @@ namespace Presenter
 		if (confirm('Reset game?'))
 		{
 			Model.resetState();
-			View.update();
+			updateView();
 		}
 	}
 
@@ -49,7 +50,7 @@ namespace Presenter
 	{
 		View.hidePage();
 		currentCard.apply();
-		View.update();
+		updateView();
 	}
 
 	export function onCancel()
@@ -61,5 +62,11 @@ namespace Presenter
 	{
 		currentCard = makeCard(tag);
 		View.populateCard(currentCard);
+	}
+
+	function updateView()
+	{
+		state = new State();
+		View.update();
 	}
 }
