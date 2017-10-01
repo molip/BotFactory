@@ -1,34 +1,25 @@
 namespace Presenter
 {
-	export function makeCard(tag: string)
-	{
-		if (tag == 'blueprint')
-			return new BlueprintCard();
-		if (tag == 'sell')
-			return new SellCard();
-		if (tag == 'sabotage')
-			return new SabotageCard();
-		if (tag == 'warehouse')
-			return new WarehouseCard();
-		if (tag == 'production')
-			return new ProductionCard();
-		if (tag == 'quality')
-			return new QualityCard();
-		if (tag == 'payday')
-			return new PaydayCard();
-		if (tag == 'espionage')
-			return new EspionageCard();
-		if (tag == 'discard')
-			return new DiscardCard();
-		if (tag == 'market')
-			return new MarketCard();
-		if (tag == 'crash')
-			return new MarketCrashCard();
-		if (tag == 'botrot')
-			return new BotRotCard();
-		if (tag == 'finish')
-			return new FinishCard();
+	export enum CardID { Blueprint, Sell, Sabotage, Warehouse, Production, Quality, Payday, Espionage, Discard, Market, Crash, Botrot, Finish };
 
+	export function makeCard(id: CardID)
+	{
+		switch (id)
+		{
+			case CardID.Blueprint: return new BlueprintCard();
+			case CardID.Sell: return new SellCard();
+			case CardID.Sabotage: return new SabotageCard();
+			case CardID.Warehouse: return new WarehouseCard();
+			case CardID.Production: return new ProductionCard();
+			case CardID.Quality: return new QualityCard();
+			case CardID.Payday: return new PaydayCard();
+			case CardID.Espionage: return new EspionageCard();
+			case CardID.Discard: return new DiscardCard();
+			case CardID.Market: return new MarketCard();
+			case CardID.Crash: return new MarketCrashCard();
+			case CardID.Botrot: return new BotRotCard();
+			case CardID.Finish: return new FinishCard();
+		}
 		Util.assert(false);
 		return null;
 	}

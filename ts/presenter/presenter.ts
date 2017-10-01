@@ -3,6 +3,36 @@ namespace Presenter
 	let currentCard: Card;
 	export let state: State;
 
+	export class CardDef 
+	{
+		constructor(public name: string, public id: CardID) { }
+	}
+
+	export const EventCardDefs = 
+	[
+		new CardDef('Market', CardID.Market),
+		new CardDef('Bot Rot', CardID.Botrot),
+		new CardDef('Finish', CardID.Finish),
+	];
+
+	export const UpgradeCardDefs =
+	[
+		new CardDef('Blueprint', CardID.Blueprint),
+		new CardDef('Warehouse', CardID.Warehouse),
+		new CardDef('Production', CardID.Production),
+		new CardDef('Quality', CardID.Quality),
+	];
+
+	export const ActionCardDefs =
+	[
+		new CardDef('Payday', CardID.Payday),
+		new CardDef('Market Crash', CardID.Crash),
+		new CardDef('Sabotage', CardID.Sabotage),
+		new CardDef('Espionage', CardID.Espionage),
+		new CardDef('Sell Blueprint', CardID.Sell),
+		new CardDef('Discard', CardID.Discard)
+	];
+
 	export function onLoad()
 	{
 		Model.init();
@@ -58,9 +88,9 @@ namespace Presenter
 		View.hidePage();
 	}
 
-	export function onCardClicked(tag: string)
+	export function onCardClicked(id: CardID)
 	{
-		currentCard = makeCard(tag);
+		currentCard = makeCard(id);
 		View.populateCard(currentCard);
 	}
 

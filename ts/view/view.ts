@@ -1,37 +1,32 @@
 namespace View 
 {
-	function addTab(name: string, tag: string)
+	function addTab(name: string, id: Presenter.CardID)
 	{
 		let tab = document.createElement('div');
 		tab.innerText = name;
 		tab.className = 'card';
 		tab.addEventListener('click', () =>
 		{
-			onCardClicked(tag, tab);
+			onCardClicked(id, tab);
 		});
 		return tab;
 	}
 
 	export function init()
 	{
+		let CardID = Presenter.CardID; 
+
 		let div = document.getElementById('event_cards');
-		div.appendChild(addTab('Market', 'market'));
-		div.appendChild(addTab('Bot Rot', 'botrot'));
-		div.appendChild(addTab('Finish', 'finish'));
+		for (let card of Presenter.EventCardDefs)
+			div.appendChild(addTab(card.name, card.id));
 
 		div = document.getElementById('upgrade_cards');
-		div.appendChild(addTab('Blueprint', 'blueprint'));
-		div.appendChild(addTab('Warehouse', 'warehouse'));
-		div.appendChild(addTab('Production', 'production'));
-		div.appendChild(addTab('Quality', 'quality'));
+		for (let card of Presenter.UpgradeCardDefs)
+			div.appendChild(addTab(card.name, card.id));
 
 		div = document.getElementById('action_cards');
-		div.appendChild(addTab('Payday', 'payday'));
-		div.appendChild(addTab('Market Crash', 'crash'));
-		div.appendChild(addTab('Sabotage', 'sabotage'));
-		div.appendChild(addTab('Espionage', 'espionage'));
-		div.appendChild(addTab('Sell Blueprint', 'sell'));
-		div.appendChild(addTab('Discard', 'discard'));
+		for (let card of Presenter.ActionCardDefs)
+			div.appendChild(addTab(card.name, card.id));
 
 		document.getElementById('reset_button').addEventListener('click', Presenter.onReset);
 		document.getElementById('start_game_button').addEventListener('click', Presenter.onStartGame);
@@ -105,7 +100,7 @@ namespace View
 		input.focus();
 	}
 
-	function onCardClicked(tag: string, tab: HTMLDivElement)
+	function onCardClicked(id: Presenter.CardID, tab: HTMLDivElement)
 	{
 		let page = document.getElementById('page');
 		page.style.left = tab.offsetLeft.toString() + 'px';
@@ -118,7 +113,7 @@ namespace View
 		page.style.left = page.style.top = page.style.width = page.style.height = '';
 		page.classList.add('show');
 
-		Presenter.onCardClicked(tag);
+		Presenter.onCardClicked(id);
 	}
 
 	export function populateCard(card: Presenter.Card)
