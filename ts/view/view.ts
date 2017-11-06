@@ -1,14 +1,19 @@
 namespace View 
 {
+	export class CardTab
+	{
+		constructor(public id: Presenter.CardID, public div: HTMLDivElement) { }
+	}
+
+	let _cardTabs: CardTab[] = [];
+
 	function addTab(name: string, id: Presenter.CardID)
 	{
 		let tab = document.createElement('div');
-		tab.innerText = name;
+		tab.innerHTML = name.replace(' ', '<br>');
 		tab.className = 'card';
-		tab.addEventListener('click', () =>
-		{
-			onCardClicked(id, tab);
-		});
+		tab.addEventListener('click', () => { Presenter.onCardClicked(id); });
+		_cardTabs.push(new CardTab(id, tab));
 		return tab;
 	}
 
@@ -31,7 +36,6 @@ namespace View
 		document.getElementById('reset_button').addEventListener('click', Presenter.onReset);
 		document.getElementById('start_game_button').addEventListener('click', Presenter.onStartGame);
 		document.getElementById('add_player_button').addEventListener('click', View.onAddPlayer);
-		document.getElementById('cancel_button').addEventListener('click', Presenter.onCancel);
 		document.getElementById('ok_button').addEventListener('click', Presenter.onOK);
 
 		document.getElementById('player_name_input').addEventListener('keypress', function (event: KeyboardEvent)
@@ -90,6 +94,8 @@ namespace View
 		document.getElementById('pickup_div').hidden = !state.showPickup;
 		(document.getElementById('start_game_button') as HTMLButtonElement).disabled = !state.canStart;
 		document.getElementById('market_span').innerText = state.market;
+
+		onCardChanged(null);
 	}
 
 	export function onAddPlayer()
@@ -100,26 +106,22 @@ namespace View
 		input.focus();
 	}
 
-	function onCardClicked(id: Presenter.CardID, tab: HTMLDivElement)
+	export function onCardChanged(card: Presenter.Card)
 	{
-		let page = document.getElementById('page');
-		page.style.left = tab.offsetLeft.toString() + 'px';
-		page.style.top = tab.offsetTop.toString() + 'px';
-		page.style.width = tab.offsetWidth.toString() + 'px';
-		page.style.height = tab.offsetHeight.toString() + 'px';
+		for (let cardTab of _cardTabs)
+		{
+			let select = card && card.id == cardTab.id;
+			Util.applyClass(cardTab.div, 'card_selected', select);
+			Util.applyClass(cardTab.div, 'card_unselected', !select);
+		}
 
-		document.body.offsetWidth; // Force layout.
-
-		page.style.left = page.style.top = page.style.width = page.style.height = '';
-		page.classList.add('show');
-
-		Presenter.onCardClicked(id);
-	}
-
-	export function populateCard(card: Presenter.Card)
-	{
 		let contentDiv = document.getElementById('page_content');
 		contentDiv.innerHTML = '';
+
+		document.getElementById('page').hidden = !card;
+
+		if (!card)
+			return;
 
 		let title = document.getElementById('page_title');
 		title.innerText = card.name;
@@ -142,10 +144,5 @@ namespace View
 			for (let item of radioList.items)
 				cardUI.addRadio(item);
 		}
-	}
-
-	export function hidePage()
-	{
-		document.getElementById('page').classList.remove('show');
 	}
 }

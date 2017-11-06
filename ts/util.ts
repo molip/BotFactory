@@ -18,4 +18,13 @@
 	{
 		obj.__proto__ = type.prototype;
 	}
+
+	export function applyClass(element: Element, cssClass: string, state: boolean)
+	{
+		if (state)
+			element.classList.add(cssClass);
+		else
+			element.classList.remove(cssClass);
+	}
+
 }

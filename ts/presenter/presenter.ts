@@ -38,6 +38,7 @@ namespace Presenter
 		Model.init();
 		View.init();
 		updateView();
+		View.onCardChanged(null);
 	}
 
 	export function onAddPlayer(name: string)
@@ -78,20 +79,16 @@ namespace Presenter
 
 	export function onOK()
 	{
-		View.hidePage();
 		currentCard.apply();
+		currentCard = null;
+		View.onCardChanged(null);
 		updateView();
-	}
-
-	export function onCancel()
-	{
-		View.hidePage();
 	}
 
 	export function onCardClicked(id: CardID)
 	{
 		currentCard = makeCard(id);
-		View.populateCard(currentCard);
+		View.onCardChanged(currentCard);
 	}
 
 	function updateView()

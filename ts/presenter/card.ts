@@ -36,6 +36,7 @@ namespace Presenter
 		radioIndex = 0;
 
 		abstract name: string;
+		abstract id: CardID;
 
 		makeSelectList(): List { return null; }
 		makeRadioList(): List { return null; }
@@ -45,6 +46,7 @@ namespace Presenter
 	export class BlueprintCard extends Card
 	{
 		name = 'Blueprint';
+		id = CardID.Blueprint;
 
 		makeSelectList()
 		{
@@ -82,6 +84,7 @@ namespace Presenter
 	export class SellCard extends Card
 	{
 		name = 'Sell'; 
+		id = CardID.Sell;
 
 		apply()
 		{
@@ -93,6 +96,7 @@ namespace Presenter
 	export class SabotageCard extends Card
 	{
 		name = 'Sabotage'; 
+		id = CardID.Sabotage;
 
 		makeSelectList()
 		{
@@ -118,6 +122,7 @@ namespace Presenter
 	export class PaydayCard extends Card
 	{
 		name = 'Payday'; 
+		id = CardID.Payday;
 
 		apply()
 		{
@@ -129,6 +134,7 @@ namespace Presenter
 	export class MarketCrashCard extends Card
 	{
 		name = 'Market Crash';
+		id = CardID.Crash;
 
 		apply()
 		{
@@ -140,6 +146,7 @@ namespace Presenter
 	export class EspionageCard extends Card
 	{
 		name = 'Espionage'; 
+		id = CardID.Espionage;
 
 		apply()
 		{
@@ -150,6 +157,7 @@ namespace Presenter
 	export class DiscardCard extends Card
 	{
 		name = 'Discard'; 
+		id = CardID.Discard;
 
 		apply()
 		{
@@ -160,6 +168,7 @@ namespace Presenter
 	export class QualityCard extends Card
 	{
 		name = 'Quality'; 
+		id = CardID.Quality;
 
 		apply()
 		{
@@ -171,6 +180,7 @@ namespace Presenter
 	export class ProductionCard extends Card
 	{
 		name = 'Production'; 
+		id = CardID.Production;
 
 		apply()
 		{
@@ -182,6 +192,7 @@ namespace Presenter
 	export class WarehouseCard extends Card
 	{
 		name = 'Warehouse'; 
+		id = CardID.Warehouse;
 
 		apply()
 		{
@@ -193,6 +204,7 @@ namespace Presenter
 	export class MarketCard extends Card
 	{
 		name = 'Market';
+		id = CardID.Market;
 
 		makeSelectList()
 		{
@@ -222,6 +234,7 @@ namespace Presenter
 	export class BotRotCard extends Card
 	{
 		name = 'Bot Rot';
+		id = CardID.Botrot;
 
 		makeRadioList()
 		{
@@ -243,6 +256,7 @@ namespace Presenter
 	export class FinishCard extends Card
 	{
 		name = 'Finish';
+		id = CardID.Finish;
 
 		apply()
 		{
